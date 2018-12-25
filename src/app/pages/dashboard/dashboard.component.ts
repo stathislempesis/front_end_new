@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'ngx-dashboard',
-  templateUrl: './dashboard.component.html',
+  template: `
+    <router-outlet></router-outlet>
+  `,
 })
 export class DashboardComponent {
+
 }

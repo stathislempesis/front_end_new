@@ -9,17 +9,21 @@ import { DashboardComponent } from './dashboard.component';
 import { DashboardRoutingModule, routedComponents } from './dashboard-routing.module';
 
 import { RetweetsComponent } from './retweets/retweets.component';
+import { NumRetweetsComponent } from './retweets/numRetweets.component';
 import { RepliesComponent } from './replies/replies.component';
+import { NumRepliesComponent } from './replies/numReplies.component';
 
 const components = [
   RetweetsComponent,
+  NumRetweetsComponent,
   RepliesComponent,
+  NumRepliesComponent,
   DashboardComponent
 ];
 
 @NgModule({
   imports: [
-    ThemeModule,NgxChartsModule,DashboardRoutingModule
+    ThemeModule,DashboardRoutingModule, NgxChartsModule, ChartModule 
   ],
   declarations: [...routedComponents, ...components],
 })

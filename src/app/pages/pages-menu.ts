@@ -6,6 +6,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'nb-home',
     link: '/pages/dashboard',
     home: true,
+    children: [
+      {
+      title: 'Retweets',
+      link: '/pages/dashboard/retweets',
+      },
+      {
+      title: 'Replies',
+      link: '/pages/dashboard/replies',
+      }
+    ]
   },
   {
     title: 'FEATURES',

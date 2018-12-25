@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'ngx-dashboard',
+  selector: 'ngx-replies',
+  styleUrls: ['./replies.component.scss'],
   templateUrl: './replies.component.html',
 })
-export class RepliesComponent {
-}
+export class RepliesComponent {}
