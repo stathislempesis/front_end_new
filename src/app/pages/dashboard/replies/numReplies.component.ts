@@ -1,7 +1,7 @@
 import {formatDate} from '@angular/common';
 import { RepliesService } from "./replies.service";
 import { Component, OnDestroy } from '@angular/core';
-import { NbThemeService, NbColorHelper } from '@nebular/theme';;
+import { NbThemeService, NbColorHelper } from '@nebular/theme';
 
 @Component({
   selector: 'ngx-dashboard-numReplies',
