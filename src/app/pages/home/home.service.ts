@@ -9,7 +9,7 @@ import 'rxjs/add/operator/catch';
 })
 export class HomeService {
 
-  private apiUrl = 'http://localhost:8888/hubUsers';
+  private apiUrl = 'http://localhost:8080/retweeterRetweetedGet';
 
   constructor(private http: Http) { }
 

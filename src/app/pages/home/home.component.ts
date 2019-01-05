@@ -8,7 +8,7 @@ import { HomeService } from "./home.service";
 })
 export class HomeComponent implements OnInit{
 
-  users: { name: string, location: string }[] = [];
+  users: { name: string, title: string, picture: string}[] = [];
 
   constructor(private homeService: HomeService) {}
 
@@ -22,7 +22,8 @@ export class HomeComponent implements OnInit{
           for (let dato of data) {
                this.users.push({
                       name: dato.screenName,
-                      location: dato.location
+                      title: "Number of followers : " + dato.followersCount,
+                      picture: dato.profileImageURL
                   });
           }
 
