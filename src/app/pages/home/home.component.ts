@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit{
                this.users.push({
                       name: dato.screenName,
                       title: "Number of followers : " + dato.followersCount,
-                      picture: dato.profileImageURL
+                      picture: dato.profileImageUrl
                   });
           }
 
