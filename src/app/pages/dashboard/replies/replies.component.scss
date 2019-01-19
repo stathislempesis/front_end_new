@@ -1,4 +1,23 @@
 @import '../../../@theme/styles/themes';
+@import '~@nebular/theme/styles/core/mixins';
+
+/deep/ nb-card.popover-card {
+  margin-bottom: 0;
+  width: 300px;
+  box-shadow: none;
+}
+
+:host {
+  button.with-margins {
+    @include nb-ltr(margin, 0 0.75rem 2rem 0);
+    @include nb-rtl(margin, 0 0 2rem 0.75rem);
+  }
+
+  /deep/ .btn-outline-secondary {
+    @include nb-ltr(margin, 0 0.5rem 0.5rem 0);
+    @include nb-rtl(margin, 0 0 0.5rem 0.5rem);
+  }
+}
 
 @include nb-install-component() {
   ngx-dashboard-numReplies{
@@ -12,4 +31,20 @@
       width: 100%;
     }
   }
+
+  .calendars-container {
+      margin-top: 2rem;
+    }
+
+    h2 {
+      font-size: nb-theme(font-size-xlg);
+      text-align: center;
+    }
+
+    .nebular-calendar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 3rem;
+    }
 }

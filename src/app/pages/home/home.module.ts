@@ -11,6 +11,6 @@ const components = [
   imports: [
     ThemeModule
   ],
-  declarations: [...components],
+  declarations: [...components]
 })
 export class HomeModule { }

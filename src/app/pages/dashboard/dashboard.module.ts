@@ -12,19 +12,28 @@ import { RetweetsComponent } from './retweets/retweets.component';
 import { NumRetweetsComponent } from './retweets/numRetweets.component';
 import { RepliesComponent } from './replies/replies.component';
 import { NumRepliesComponent } from './replies/numReplies.component';
+import { NgxPopoverCardComponent } from './replies/popover-example.component';
 
 const components = [
   RetweetsComponent,
   NumRetweetsComponent,
   RepliesComponent,
   NumRepliesComponent,
-  DashboardComponent
+  DashboardComponent,
+  NgxPopoverCardComponent
+];
+
+const ENTRY_COMPONENTS = [
+  NgxPopoverCardComponent
 ];
 
 @NgModule({
   imports: [
     ThemeModule,DashboardRoutingModule, NgxChartsModule, ChartModule 
   ],
-  declarations: [...routedComponents, ...components],
+  declarations: [...components],
+  entryComponents: [
+    ...ENTRY_COMPONENTS,
+  ]
 })
 export class DashboardModule { }

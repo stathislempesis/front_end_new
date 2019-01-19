@@ -21,6 +21,7 @@ export class NumRepliesComponent implements OnDestroy {
     public chartLabelsReplies :Array<any> = [];
 
     constructor(private theme: NbThemeService, private repliesService: RepliesService) {
+
     this.themeSubscription = this.theme.getJsTheme().subscribe(config => {
 
       const colors: any = config.variables;
