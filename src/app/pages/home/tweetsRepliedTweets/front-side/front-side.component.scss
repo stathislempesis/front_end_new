@@ -1,0 +1,13 @@
+@import '../../../../@theme/styles/themes';
+
+@include nb-install-component() {
+  overflow: auto;
+
+  nb-card-body {
+    padding: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+}
