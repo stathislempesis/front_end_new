@@ -6,15 +6,9 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { ThemeModule } from '../@theme/theme.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
 import { HomeModule } from './home/home.module';
-import { NgxPopoverCardComponent } from '../calendar/popover-calendar.component';
 
 const PAGES_COMPONENTS = [
-  PagesComponent,
-  NgxPopoverCardComponent
-];
-
-const ENTRY_COMPONENTS = [
-  NgxPopoverCardComponent
+  PagesComponent
 ];
 
 @NgModule({
@@ -27,9 +21,6 @@ const ENTRY_COMPONENTS = [
   ],
   declarations: [
     ...PAGES_COMPONENTS,
-  ],
-  entryComponents: [
-    ...ENTRY_COMPONENTS,
   ]
 })
 export class PagesModule {

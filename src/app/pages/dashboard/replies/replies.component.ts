@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NgxPopoverCardComponent } from '../../../calendar/popover-calendar.component';
 
 @Component({
   selector: 'ngx-replies',
@@ -7,7 +6,5 @@ import { NgxPopoverCardComponent } from '../../../calendar/popover-calendar.comp
   templateUrl: './replies.component.html',
 })
 export class RepliesComponent {
-
-  cardComponent = NgxPopoverCardComponent;
 
 }
