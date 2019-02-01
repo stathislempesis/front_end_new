@@ -1,8 +1,7 @@
 import {formatDate} from '@angular/common';
 import { RepliesService } from "./replies.service";
-import { Component, OnDestroy } from '@angular/core';
-import { NbThemeService, NbColorHelper } from '@nebular/theme';
-import { NgxPopoverCardComponent } from '../../../calendar/popover-calendar.component';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NbThemeService, NbColorHelper } from '@nebular/theme';;
 
 @Component({
   selector: 'ngx-dashboard-numReplies',
@@ -11,19 +10,23 @@ import { NgxPopoverCardComponent } from '../../../calendar/popover-calendar.comp
     <chart type="line" [data]="dataForChart" [options]="chartOptions"></chart>
   `,
 })
-export class NumRepliesComponent implements OnDestroy {
+export class NumRepliesComponent implements OnInit,OnDestroy {
 
     chartOptions: any;
     themeSubscription: any;
-
-    public dataForChart: any;
+    dataForChart: any;
 
     public chartDataReplies : { label: string, data: Array<any>, backgroundColor: string, borderColor: string }[] = [];
 
     public chartLabelsReplies :Array<any> = [];
 
-    constructor(private theme: NbThemeService, private repliesService: RepliesService) {
+    constructor(private theme: NbThemeService, private repliesService: RepliesService) {}
 
+  ngOnInit() {
+    this.createChart(null,null);
+  }
+
+  createChart(dateRangeStart: any, dateRangeEnd: any){
     this.themeSubscription = this.theme.getJsTheme().subscribe(config => {
       
       const colors: any = config.variables;
@@ -35,8 +38,16 @@ export class NumRepliesComponent implements OnDestroy {
           let arr: any[];
           arr = [];
           for (let stat of data) {
-               arr.push(stat[1]);
-               this.chartLabelsReplies.push(new Date(stat[0]));
+               let newDate = new Date(stat[0])
+               if(dateRangeStart==null && dateRangeEnd==null){
+                   arr.push(stat[1]);
+                   this.chartLabelsReplies.push(newDate);
+               }else{
+                    if(newDate>=dateRangeStart && newDate<=dateRangeEnd){
+                       arr.push(stat[1]);
+                       this.chartLabelsReplies.push(newDate); 
+                    }
+               }
          }
 
          this.chartDataReplies.push({
@@ -98,7 +109,9 @@ export class NumRepliesComponent implements OnDestroy {
   }
 
   updateChart(dateRange){
-   this.chartOptions.scales.xAxes[0].ticks.max = dateRange.end;
+   this.chartDataReplies.length = 0;
+   this.chartLabelsReplies.length=0;
+   this.createChart(dateRange.start,dateRange.end);
   }
 
   ngOnDestroy(): void {
