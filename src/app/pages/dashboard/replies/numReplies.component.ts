@@ -1,12 +1,16 @@
 import {formatDate} from '@angular/common';
 import { RepliesService } from "./replies.service";
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NbThemeService, NbColorHelper } from '@nebular/theme';;
+import { NbThemeService, NbColorHelper } from '@nebular/theme';
+import { NgxPopoverCardComponent } from '../../../calendar/popover-calendar.component';
 
 @Component({
   selector: 'ngx-dashboard-numReplies',
   template: `
-    <ngx-popover-card (selectedDateRange)="updateChart($event)">Calendar</ngx-popover-card>
+    <ng-template #popContent>
+         <ngx-popover-card (selectedDateRange)="updateChart($event)"></ngx-popover-card>
+    </ng-template>
+    <button class="btn btn-warning with-margins" [nbPopover]="popContent">Calendar</button>
     <chart type="line" [data]="dataForChart" [options]="chartOptions"></chart>
   `,
 })
