@@ -1,19 +1,19 @@
 import {formatDate} from '@angular/common';
-import { RepliesService } from "./replies.service";
+import { HomeService } from "../home.service";
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NbThemeService, NbColorHelper } from '@nebular/theme';
 
 @Component({
-  selector: 'ngx-dashboard-numReplies',
+  selector: 'ngx-dashboard-tweetsStatsBars',
   template: `
     <ng-template #popContent>
          <ngx-popover-card (selectedDateRange)="updateChart($event)"></ngx-popover-card>
     </ng-template>
     <button class="btn btn-warning with-margins" [nbPopover]="popContent">Calendar</button>
-    <chart type="line" [data]="dataForChart" [options]="chartOptions"></chart>
+    <chart type="bar" [data]="dataForChart" [options]="chartOptions"></chart>
   `,
 })
-export class NumRepliesComponent implements OnInit,OnDestroy {
+export class TweetsStatsBarsComponent implements OnInit,OnDestroy {
 
     chartOptions: any;
     themeSubscription: any;
@@ -23,7 +23,7 @@ export class NumRepliesComponent implements OnInit,OnDestroy {
 
     public chartLabelsReplies :Array<any> = [];
 
-    constructor(private theme: NbThemeService, private repliesService: RepliesService) {}
+    constructor(private theme: NbThemeService, private homeService: HomeService) {}
 
   ngOnInit() {
     this.createChart(null,null);
@@ -35,7 +35,39 @@ export class NumRepliesComponent implements OnInit,OnDestroy {
       const colors: any = config.variables;
       const chartjs: any = config.variables.chartjs;
 
-      this.repliesService.findRepliesById(1034105453989572608).subscribe(
+      this.homeService.findTweetsById(1034105453989572608).subscribe(
+        data => {
+
+          let arr: any[];
+          arr = [];
+          for (let stat of data) {
+               let newDate = new Date(stat[0])
+               if(dateRangeStart==null && dateRangeEnd==null){
+                   arr.push(stat[1]);
+                   this.chartLabelsReplies.push(newDate);
+               }else{
+                    if(newDate>=dateRangeStart && newDate<=dateRangeEnd){
+                       arr.push(stat[1]);
+                       this.chartLabelsReplies.push(newDate); 
+                    }
+               }
+         }
+
+         this.chartDataReplies.push({
+                      label: "Number of tweets",
+                      data: arr,
+                      backgroundColor: NbColorHelper.hexToRgbA(colors.primaryLight, 0.8),
+                      borderColor: colors.primaryLight
+                  });
+
+        },
+        err => {
+          console.log(err);
+        }
+
+      );
+
+      this.homeService.findRepliesById(1034105453989572608).subscribe(
         data => {
 
           let arr: any[];
@@ -56,20 +88,21 @@ export class NumRepliesComponent implements OnInit,OnDestroy {
          this.chartDataReplies.push({
                       label: "Number of replies",
                       data: arr,
-                      backgroundColor: NbColorHelper.hexToRgbA(colors.primary, 0.3),
-                      borderColor: colors.primary
+                      backgroundColor: NbColorHelper.hexToRgbA(colors.infoLight, 0.8),
+                      borderColor: colors.infoLight
                   });
 
-         this.dataForChart = {
-            labels: this.chartLabelsReplies,
-            datasets: this.chartDataReplies 
-         };
         },
         err => {
           console.log(err);
         }
 
       );
+
+      this.dataForChart = {
+            labels: this.chartLabelsReplies,
+            datasets: this.chartDataReplies 
+         };
 
       this.chartOptions = {
         responsive: true,
@@ -113,7 +146,7 @@ export class NumRepliesComponent implements OnInit,OnDestroy {
 
   updateChart(dateRange){
    this.chartDataReplies.length = 0;
-   this.chartLabelsReplies.length=0;
+   this.chartLabelsReplies.length = 0;
    this.createChart(dateRange.start,dateRange.end);
   }
 

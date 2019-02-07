@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgxPopoverCardComponent } from '../../../calendar/popover-calendar.component';
 
 @Component({
   selector: 'ngx-replies',

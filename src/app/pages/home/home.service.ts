@@ -9,12 +9,28 @@ import 'rxjs/add/operator/catch';
 })
 export class HomeService {
 
-  private apiUrl = 'http://localhost:8888/hubUsers';
-
   constructor(private http: Http) { }
 
   getHubUsers(): Observable<any> {
-     const url = `${this.apiUrl}`;
+     const url = `${'http://localhost:8888/hubUsers'}`;
+    return this.http.get(url)
+      .map((res:Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  findRepliesById(id: number): Observable<any> {
+
+     const url = `${'http://localhost:8080/users'}/1034105453989572608/replies`;
+ 
+    return this.http.get(url)
+      .map((res:Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  findTweetsById(id: number): Observable<any> {
+
+     const url = `${'http://localhost:8080/users'}/1034105453989572608/tweets`;
+ 
     return this.http.get(url)
       .map((res:Response) => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
