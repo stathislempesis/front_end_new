@@ -35,7 +35,55 @@ export class TweetsStatsBarsComponent implements OnInit,OnDestroy {
       const colors: any = config.variables;
       const chartjs: any = config.variables.chartjs;
 
-      this.homeService.findTweetsById(1034105453989572608).subscribe(
+      this.homeService.findTweetsRepliesById(1034105453989572608).subscribe(
+        data => {
+
+          let arrTweets: any[];
+          arrTweets = [];
+          let arrReplies: any[];
+          arrReplies = [];
+          for (let stat of data) {
+               let newDate = new Date(stat[0])
+               if(dateRangeStart==null && dateRangeEnd==null){
+                   arrTweets.push(stat[1]);
+                   arrReplies.push(stat[2]);
+                   this.chartLabelsReplies.push(newDate);
+               }else{
+                    if(newDate>=dateRangeStart && newDate<=dateRangeEnd){
+                       arrTweets.push(stat[1]);
+                       arrReplies.push(stat[2]);
+                       this.chartLabelsReplies.push(newDate); 
+                    }
+               }
+         }
+
+         this.chartDataReplies.push({
+                      label: "Number of tweets",
+                      data: arrTweets,
+                      backgroundColor: NbColorHelper.hexToRgbA(colors.primaryLight, 0.8),
+                      borderColor: colors.primaryLight
+                  });
+
+         this.chartDataReplies.push({
+                      label: "Number of replies",
+                      data: arrReplies,
+                      backgroundColor: NbColorHelper.hexToRgbA(colors.infoLight, 0.8),
+                      borderColor: colors.infoLight
+                  });
+
+          this.dataForChart = {
+            labels: this.chartLabelsReplies,
+            datasets: this.chartDataReplies 
+         };
+
+        },
+        err => {
+          console.log(err);
+        }
+
+      );
+
+      /*this.homeService.findTweetsById(1034105453989572608).subscribe(
         data => {
 
           let arr: any[];
@@ -67,20 +115,30 @@ export class TweetsStatsBarsComponent implements OnInit,OnDestroy {
 
       );
 
-      this.homeService.findRepliesById(1034105453989572608).subscribe(
+      this.homeService.findRepliesByIdDates(1034105453989572608,this.chartLabelsReplies).subscribe(
         data => {
 
           let arr: any[];
           arr = [];
+          let checkDate = new Date('1968-11-16T00:00:00');
           for (let stat of data) {
                let newDate = new Date(stat[0])
                if(dateRangeStart==null && dateRangeEnd==null){
-                   arr.push(stat[1]);
-                   this.chartLabelsReplies.push(newDate);
+                    for (let entry of this.chartLabelsReplies) {
+                        if(entry.getTime()<= checkDate.getTime()) continue;
+                        if(entry.getTime()< newDate.getTime()){
+                            arr.push(0);
+                            checkDate = entry;
+                            continue;
+                        }else{
+                            arr.push(stat[1]);
+                            checkDate = newDate;
+                            break;
+                        }
+                    }
                }else{
                     if(newDate>=dateRangeStart && newDate<=dateRangeEnd){
                        arr.push(stat[1]);
-                       this.chartLabelsReplies.push(newDate); 
                     }
                }
          }
@@ -97,12 +155,7 @@ export class TweetsStatsBarsComponent implements OnInit,OnDestroy {
           console.log(err);
         }
 
-      );
-
-      this.dataForChart = {
-            labels: this.chartLabelsReplies,
-            datasets: this.chartDataReplies 
-         };
+      );*/
 
       this.chartOptions = {
         responsive: true,

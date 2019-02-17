@@ -18,9 +18,9 @@ export class HomeService {
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  findRepliesById(id: number): Observable<any> {
+  findRepliesByIdDates(id: number, arr_dates: Date[]): Observable<any> {
 
-     const url = `${'http://localhost:8080/users'}/1034105453989572608/replies`;
+     const url = `${'http://localhost:8080/users'}/1034105453989572608/${arr_dates}/replies`;
  
     return this.http.get(url)
       .map((res:Response) => res.json())
@@ -30,6 +30,15 @@ export class HomeService {
   findTweetsById(id: number): Observable<any> {
 
      const url = `${'http://localhost:8080/users'}/1034105453989572608/tweets`;
+ 
+    return this.http.get(url)
+      .map((res:Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  findTweetsRepliesById(id: number): Observable<any> {
+
+     const url = `${'http://localhost:8080/users'}/1034105453989572608/tweetsWithReplies`;
  
     return this.http.get(url)
       .map((res:Response) => res.json())
