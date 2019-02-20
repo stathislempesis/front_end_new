@@ -44,4 +44,13 @@ export class HomeService {
       .map((res:Response) => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
+
+  findTweetsRepliesById2(id: number, dateRangeStart: string, dateRangeEnd: string): Observable<any> {
+
+     const url = `${'http://localhost:8080/users'}/1034105453989572608/${dateRangeStart}/${dateRangeEnd}/tweetsWithReplies`;
+ 
+    return this.http.get(url)
+      .map((res:Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
 }

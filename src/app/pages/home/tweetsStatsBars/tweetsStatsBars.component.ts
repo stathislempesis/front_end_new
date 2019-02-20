@@ -158,22 +158,27 @@ export class TweetsStatsBarsComponent implements OnInit,OnDestroy {
       );*/
 
       this.chartOptions = {
-        responsive: true,
         maintainAspectRatio: false,
+        responsive: true,
+        legend: {
+          labels: {
+            fontColor: chartjs.textColor,
+          },
+        },
         scales: {
           xAxes: [
             {
-              type: 'time',
-                time: {
-                    unit: 'day'
-                },
               gridLines: {
-                display: true,
+                display: false,
                 color: chartjs.axisLineColor,
               },
               ticks: {
                 fontColor: chartjs.textColor,
               },
+              type: 'time',
+                time: {
+                    unit: 'day'
+                }
             },
           ],
           yAxes: [
@@ -187,11 +192,6 @@ export class TweetsStatsBarsComponent implements OnInit,OnDestroy {
               },
             },
           ],
-        },
-        legend: {
-          labels: {
-            fontColor: chartjs.textColor,
-          },
         },
       };
     });
