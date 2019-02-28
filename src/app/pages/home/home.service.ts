@@ -18,6 +18,13 @@ export class HomeService {
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+  getRetweeters(): Observable<any> {
+     const url = `${'http://localhost:8888/retweeters'}`;
+    return this.http.get(url)
+      .map((res:Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
   findRepliesByIdDates(id: number, arr_dates: Date[]): Observable<any> {
 
      const url = `${'http://localhost:8080/users'}/1034105453989572608/${arr_dates}/replies`;
@@ -48,6 +55,24 @@ export class HomeService {
   findTweetsRepliesById2(id: number, dateRangeStart: string, dateRangeEnd: string): Observable<any> {
 
      const url = `${'http://localhost:8080/users'}/1034105453989572608/${dateRangeStart}/${dateRangeEnd}/tweetsWithReplies`;
+ 
+    return this.http.get(url)
+      .map((res:Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  findTweetsRetweetsById(id: number): Observable<any> {
+
+     const url = `${'http://localhost:8080/users'}/1034105453989572608/tweetsWithRetweets`;
+ 
+    return this.http.get(url)
+      .map((res:Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  findTweetsRetweetsById2(id: number, dateRangeStart: string, dateRangeEnd: string): Observable<any> {
+
+     const url = `${'http://localhost:8080/users'}/1034105453989572608/${dateRangeStart}/${dateRangeEnd}/tweetsWithRetweets`;
  
     return this.http.get(url)
       .map((res:Response) => res.json())
